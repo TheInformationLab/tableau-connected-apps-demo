@@ -2,7 +2,7 @@ var jwt = require('jsonwebtoken');
 const { v1: uuidv1 } = require('uuid');
 
 module.exports = (req, res) => {
-    const { username } = req.query;
+    const username = "craig";
     const uuid = uuidv1();
     const timenow = new Date().getTime();
     const expiry = new Date().getTime() + (5 * 60 * 1000);

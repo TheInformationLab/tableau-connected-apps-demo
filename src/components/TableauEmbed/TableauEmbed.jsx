@@ -11,7 +11,6 @@ const TableauEmbed = (props) => {
   const [ token, setToken ] = useState(null);
   const [ loading, setLoading ] = useState(true);
   const [ error, setError ] = useState();
-  const [ username, setUsername ] = useState(null);
   const [ width, setWidth ] = useState(getWidth());
 
   const vizRef = useRef(null);
@@ -33,12 +32,7 @@ const TableauEmbed = (props) => {
   };
 
   useEffect(() => {
-    setUsername('craig');
-  }, [])
-
-  useEffect(() => {
-    if (username !== null) {
-      fetch(`/api/jwt?username=${username}`)
+      fetch(`/api/jwt`)
       .then(response => {
         if (response.ok) {
           return response.text();
@@ -55,15 +49,14 @@ const TableauEmbed = (props) => {
       .finally(() => {
         setLoading(false);
       })
-    }
-  }, [username]);
+  }, []);
 
   useEffect(() => {
-    if (username && token) {
+    if (token) {
       loadViz();
     }
   // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [token, username])
+  }, [token])
 
   if (loading) return "Loading..."
   if (error) return "Error! " + JSON.stringify(error);
