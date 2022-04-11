@@ -1,6 +1,6 @@
 {
-  "short_name": "React App",
-  "name": "Create React App Sample",
+  "short_name": "Tableau Connected App Demo",
+  "name": "Tableau Connected App with React Demo",
   "icons": [
     {
       "src": "favicon.ico",
