@@ -191,7 +191,10 @@ export default function App() {
             <div
               className="relative rounded-lg shadow-lg bg-white pt-20"
             >
-              <TableauEmbed mobile={mobile}/>
+              <TableauEmbed 
+                viewUrl={"https://clientreporting.theinformationlab.co.uk/t/PublicDemo/views/IncomeStatement/IncomeStatement"}
+                tokenUrl={"/api/jwt"}
+              />
               <img src={ConnectedAppImg} width={200} className="bottom-16 absolute right-16 z-50"/>
             </div>
           </div>
@@ -238,7 +241,7 @@ export default function App() {
           </div>
         </div>
       </div>
-      <div className="relative py-16 bg-white overflow-hidden">
+      <div className="relative pt-16 bg-white overflow-hidden">
         <div className="hidden lg:block lg:absolute lg:inset-y-0 lg:h-full lg:w-full">
           <div className="relative h-full text-lg max-w-prose mx-auto" aria-hidden="true">
             <svg
@@ -366,11 +369,6 @@ export default function App() {
             </div>
           </div>
         </div>
-        <div className='absolute z-10'>
-        <Sticky>
-          <ToDoList mobile={mobile}/>
-        </Sticky>
-        </div>
         <div className="relative px-4 sm:px-6 lg:px-8">
           <div className="text-lg max-w-prose mx-auto">
             <h1>
@@ -393,6 +391,11 @@ export default function App() {
               </ul>
             </div>
           </div>
+          <div className='absolute z-10 -mt-20'>
+          <Sticky>
+            <ToDoList mobile={mobile}/>
+          </Sticky>
+        </div>
           <div className="mt-8 lg:grid lg:grid-cols-2 lg:gap-8">
             <div className="relative lg:row-start-1 lg:col-start-2">
               <figure>
@@ -650,6 +653,111 @@ module.exports = (req, res) => {
               </p>
               <iframe className="word-wrap w-full h-20 rounded-lg shadow-lg object-cover object-center" src='http://localhost:3000/api/jwt'></iframe>
               <p>That's it for server side! We have our token, now let's go on to use it in our web app.</p>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div className="relative pb-16 bg-white overflow-hidden">
+        <div className="hidden lg:block lg:absolute lg:inset-y-0 lg:h-full lg:w-full">
+          <div className="relative h-full text-lg max-w-prose mx-auto" aria-hidden="true">
+            <svg
+              className="absolute top-12 left-full transform translate-x-32"
+              width={404}
+              height={384}
+              fill="none"
+              viewBox="0 0 404 384"
+            >
+              <defs>
+                <pattern
+                  id="74b3fd99-0a6f-4271-bef2-e80eeafdf357"
+                  x={0}
+                  y={0}
+                  width={20}
+                  height={20}
+                  patternUnits="userSpaceOnUse"
+                >
+                  <rect x={0} y={0} width={4} height={4} className="text-gray-200" fill="currentColor" />
+                </pattern>
+              </defs>
+              <rect width={404} height={384} fill="url(#74b3fd99-0a6f-4271-bef2-e80eeafdf357)" />
+            </svg>
+            <svg
+              className="absolute top-1/2 right-full transform -translate-y-1/2 -translate-x-32"
+              width={404}
+              height={384}
+              fill="none"
+              viewBox="0 0 404 384"
+            >
+              <defs>
+                <pattern
+                  id="f210dbf6-a58d-4871-961e-36d5016a0f49"
+                  x={0}
+                  y={0}
+                  width={20}
+                  height={20}
+                  patternUnits="userSpaceOnUse"
+                >
+                  <rect x={0} y={0} width={4} height={4} className="text-gray-200" fill="currentColor" />
+                </pattern>
+              </defs>
+              <rect width={404} height={384} fill="url(#f210dbf6-a58d-4871-961e-36d5016a0f49)" />
+            </svg>
+            <svg
+              className="absolute bottom-12 left-full transform translate-x-32"
+              width={404}
+              height={384}
+              fill="none"
+              viewBox="0 0 404 384"
+            >
+              <defs>
+                <pattern
+                  id="d3eb07ae-5182-43e6-857d-35c643af9034"
+                  x={0}
+                  y={0}
+                  width={20}
+                  height={20}
+                  patternUnits="userSpaceOnUse"
+                >
+                  <rect x={0} y={0} width={4} height={4} className="text-gray-200" fill="currentColor" />
+                </pattern>
+              </defs>
+              <rect width={404} height={384} fill="url(#d3eb07ae-5182-43e6-857d-35c643af9034)" />
+            </svg>
+          </div>
+        </div>
+        <div className="relative px-4 sm:px-6 lg:px-8">
+          <div className="text-lg max-w-prose mx-auto">
+            <h1>
+              <span className="block text-base text-center text-blue-600 font-semibold tracking-wide uppercase">
+                Client Side
+              </span>
+              <span className="mt-2 block text-3xl text-center leading-8 font-extrabold tracking-tight text-gray-900 sm:text-4xl">
+                Embedding in your Web App
+              </span>
+            </h1>
+            <div className="mt-6 prose prose-blue prose-lg text-gray-500 mx-auto mb-20">
+              <p>
+                Now we have our JWT we can make use of the Tableau Embedding API v3 to place the dashboard in our web app. As we mentioned
+                earlier this tutorial is going to focus on the using React however much of the content also applies to HTML and other JS frameworks.
+              </p>
+              <h2>Here's a React Component We Prepared Earlier</h2>
+              <p>
+                If you're thinking that setting up the JWT was too much of your time and you just want to get on with some embedding 
+                then <a 
+                  href={"https://github.com/TheInformationLab/tableau-connected-apps-demo/blob/205ced9fb69499a4cf042c451d31d173aa3c8f49/src/components/TableauEmbed/TableauEmbed.jsx"}
+                  target={'blank'} rel="noreferrer"
+                >here's the React component you need</a>. To make use of it simply import it into and add the snippet:
+                <pre>
+                  <code className="language-javascript">
+{`<TableauEmbed 
+  viewUrl={"https://online.tableau.com/t/PublicDemo/views/IncomeStatement/IncomeStatement"}
+  tokenUrl={"/api/jwt"}
+/>`}     
+                  </code>
+                </pre>
+                <p>Where <b>viewURL</b> is the url of the dashboard you want to embed and <b>tokenUrl</b> is the url or path to retrieve the JWT
+                you created earlier. In this case it's via the path <code>/api/jwt</code> which is part of this web app.</p>
+              </p>
             </div>
           </div>
         </div>

@@ -22,7 +22,7 @@ const TableauEmbed = (props) => {
       <tableau-viz 
         ref={vizRef}
         id="tableauViz"       
-        src={"https://clientreporting.theinformationlab.co.uk/t/PublicDemo/views/IncomeStatement/IncomeStatement"}
+        src={props.viewUrl}
         device={showMobile ? "phone" : "desktop"}
         hide-tabs={false}
         token={token}
@@ -32,7 +32,7 @@ const TableauEmbed = (props) => {
   };
 
   useEffect(() => {
-      fetch(`/api/jwt`)
+      fetch(props.tokenUrl)
       .then(response => {
         if (response.ok) {
           return response.text();
@@ -40,7 +40,6 @@ const TableauEmbed = (props) => {
         throw response;
       })
       .then(data => {
-        console.log(data);
         setToken(data);
       })
       .catch(error => {

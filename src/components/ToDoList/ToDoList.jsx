@@ -1,14 +1,18 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { MenuIcon } from '@heroicons/react/outline'
 import { useCookies } from 'react-cookie';
 import { Transition } from '@headlessui/react'
-import Prism from 'prismjs';
 
 const ToDoList = (props) => {
   const [cookies, setCookie] = useCookies(['createConnectedApp', 'generateSecret', 'createToken']);
   const [menuOpen, setMenuOpen] = useState(!props.mobile);
+
+  useEffect(() => {
+    setMenuOpen(!props.mobile)
+  }, [props.mobile])
+
   return (
-    <div style={{width: 270, backgroundColor: '#FFF'}} className={"z-50 left-0 ml-6 py-2 px-6 aspect-w-12 aspect-h-7 rounded-lg shadow-lg lg:aspect-none bg-white}"}>
+    <div style={{width: 270, backgroundColor: '#FFF'}} className={"z-50 left-0 ml-0 lg:ml-6 py-2 px-6 aspect-w-12 aspect-h-7 rounded-lg shadow-lg lg:aspect-none bg-white}"}>
       <fieldset className="space-y-5">
       <legend className="sr-only">To Do</legend>
       <div className='inline-flex'>
