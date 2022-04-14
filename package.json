@@ -11,6 +11,7 @@
     "@testing-library/react": "^12.1.4",
     "@testing-library/user-event": "^13.5.0",
     "jsonwebtoken": "^8.5.1",
+    "prismjs": "^1.27.0",
     "react": "^18.0.0",
     "react-cookie": "^4.1.1",
     "react-dom": "^18.0.0",

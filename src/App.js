@@ -4,8 +4,13 @@ import { Popover, Transition } from '@headlessui/react'
 import { MenuIcon, XIcon } from '@heroicons/react/outline'
 import TableauEmbed from './components/TableauEmbed/TableauEmbed';
 import ConnectedAppImg from './img/connectedapp.svg';
+import CreateConnectedAppImg from './img/createConnectedApp.png';
+import CreateSecretGif from './img/createSecret.gif';
+import EmbedPlaygroundImg from './img/embedPlayground.png';
 import ToDoList from './components/ToDoList/ToDoList';
 import Sticky from 'react-sticky-el';
+import Prism from 'prismjs';
+import "./prism.css";
 
 const navigation = [
   { name: 'Straight to Code', href: '#' },
@@ -290,12 +295,12 @@ export default function App() {
                 Working with React & Connected Apps
               </span>
             </h1>
-            <p className="mt-8 text-xl text-gray-500 leading-8">
+            <p className="mt-8 text-md text-gray-500 leading-8">
               In order to make use of the new <a href="https://help.tableau.com/current/api/embedding_api/en-us/index.html" target={"_blank"} rel="noreferrer">Tableau Embedding API v3 </a> 
               with React there are two problems we need to tackle. On the client side we need to reference the API library in our 
               React application and on the server side we need to implement JSON Web Tokens to allow us to authenticated against a Tableau Server.
             </p>
-            <div className="mt-6 prose prose-blue prose-lg text-gray-500 mx-auto mb-20">
+            <div className="mt-6 prose prose-blue prose-lg text-md text-gray-500 mx-auto mb-20">
               <h2>Reference Material</h2>
               <ul>
                 <li>Tableau Embedding API v3</li>
@@ -327,7 +332,7 @@ export default function App() {
               <p>
                 As the title of this tutorial suggests the client side application will make use of <b>React</b>. The React app should have already implemented 
                 some form of user authentication so that when it comes to embedding the dashboard all you have to do is tell Tableau which user has logged
-                in. If you'd like an authentication solution which is super easy to implement I'd recommend <a href="https://auth0.com/" target={"_blank"} rel="noreferrer">auth0</a>.
+                in. If you'd like an authentication solution which is super easy to implement we'd recommend <a href="https://auth0.com/" target={"_blank"} rel="noreferrer">auth0</a>.
                 It is the React web app that will communicate with the Tableau Server to load the dashboard.
               </p>
               <p>
@@ -338,11 +343,15 @@ export default function App() {
                 this can easily be ported across into AWS Lambda or a standard NodeJS Server.
               </p>
             </div>
+          </div>
+        </div>
         <div className='absolute z-10'>
         <Sticky>
           <ToDoList />
         </Sticky>
         </div>
+        <div className="relative px-4 sm:px-6 lg:px-8">
+          <div className="text-lg max-w-prose mx-auto">
             <h1>
               <span className="block text-base text-center text-blue-600 font-semibold tracking-wide uppercase">
                 Server Side
@@ -361,6 +370,265 @@ export default function App() {
                 <li>A secret ID linked to that client ID</li>
                 <li>The secret value which will be used to sign the token</li>
               </ul>
+            </div>
+          </div>
+          <div className="mt-8 lg:grid lg:grid-cols-2 lg:gap-8">
+            <div className="relative lg:row-start-1 lg:col-start-2">
+              <figure>
+                <div className="aspect-w-12 aspect-h-7 lg:aspect-none">
+                  <img
+                    className="rounded-lg shadow-lg object-cover object-center"
+                    src={CreateConnectedAppImg}
+                    alt="Create Connected App in Tableau Server"
+                    width={706}
+                    height={576}
+                  />
+                </div>
+                <figcaption className="mt-3 flex text-sm text-gray-500">
+                  <span className="ml-2">Create Connected App in Tableau Server</span>
+                </figcaption>
+              </figure>
+            </div>
+            <div className="mt-8 lg:mt-0 xl:grid xl:grid-cols-2">
+              <div className="prose prose-blue prose-lg text-gray-500  lg:row-start-1 lg:col-start-2">
+                <h2>Register your App</h2>
+                <p>
+                  In order to embed a dashboard you first need to tell Tableau Server/Online about your web app. While logged in as a <b>site 
+                  admin</b> go to your site settings and switch to the <b>Connected Apps</b> tab. Click the <b>New Connected App</b> button to 
+                  bring up the Create Connected App dialog.
+                </p>
+                <ol>
+                  <li>(Required) Give the app a name which relates to the web app in which you're embedding the dashboard</li>
+                  <li>(Recommended) If you want to limit the scope of access for the app choose a project in which the dashboard is saved.</li>
+                  <li>(Recommended) Specify the domain of the web app in which you'll be embedding the dashboard. While in development it's fine 
+                    to leave this as 'All domains' however once the web app goes into production you should set the specific domain.
+                  </li>
+                </ol>
+              </div>
+            </div>
+          </div>
+          <div className="text-lg max-w-prose mx-auto">
+            <div className="mt-6 prose prose-blue prose-lg text-gray-500 mx-auto mb-20">
+              <h2>Generate a Secret</h2>
+              <p>
+                Having registered your web app with Tableau Server you'll be given the first piece of information for the JWT and that's the <b>Client ID</b>.
+                It's probably a good idea to start a text editor or .env file in which to store the Client ID for use later.
+              </p>
+              <p>
+                We can now click the <b>Generate New Secret</b> button to create our first Secret ID and value. Each app can have two secrets registered
+                to allow for one to be used in development/test and another in production. Along with the client ID from earlier you can now store the
+                <b> Secret ID</b> and <b>Secret Value</b> for use later.
+              </p>
+              <p>
+                The final step is to enable the connected app. By default all new apps are disabled. To enable it simply click the three dot menu button
+                by your app's name and select <b>Enable</b>.
+              </p>
+              <figure>
+                <div className="aspect-w-12 aspect-h-7 lg:aspect-none">
+                  <img
+                    className="rounded-lg shadow-lg object-cover object-center"
+                    src={CreateSecretGif}
+                    alt="Create Connected Secret"
+                    width={628}
+                    height={668}
+                  />
+                </div>
+                <figcaption className="mt-3 flex text-sm text-gray-500">
+                  <span className="ml-2">Create Connected Secret in Tableau Server</span>
+                </figcaption>
+              </figure>
+            </div>
+          </div>
+          <div className="mt-8 lg:grid lg:grid-cols-2 lg:gap-8">
+            <div className="relative lg:row-start-1 lg:col-start-2">
+              <figure>
+                <div className="aspect-w-12 aspect-h-7 lg:aspect-none">
+                  <img
+                    className="rounded-lg shadow-lg object-cover object-center"
+                    src={EmbedPlaygroundImg}
+                    alt="Tableau Embedded Analytics Playground by Andre de Vries"
+                    width={706}
+                    height={599}
+                  />
+                </div>
+                <figcaption className="mt-3 flex text-sm text-gray-500">
+                  <span className="ml-2">Tableau Embedded Analytics Playground by Andre de Vries</span>
+                </figcaption>
+              </figure>
+            </div>
+            <div className="mt-8 lg:mt-0 xl:grid xl:grid-cols-2">
+              <div className="prose prose-blue prose-lg text-gray-500  lg:row-start-1 lg:col-start-2">
+                <h2>Test Your Connected App</h2>
+                <p>
+                  Before you go any further test out the connected app configuration.
+                  <ol>
+                    <li>Go to the <a href="https://playground.theinformationlab.io/" target={"_blank"} rel="noreferrer">Tableau Embedded Analytics Playground</a></li>
+                    <li>Enter the URL of the dashboard you intend to embed. Tip: Remove any part of the URL after & including the '?'</li>
+                    <li>Under <b>JWT Settings</b> enter your Tableau Server username (or email address for Tableau Online)</li>
+                    <li>Copy and paste the Client ID, Secret ID and Secret Values we saved earlier</li>
+                    <li>Click the <b>Get started</b> or <b>Generate Embed</b> button</li>
+                  </ol>
+                  If all works as expected your dashboard should load into view. If you see an error code take a look at the&nbsp;
+                  <a href="https://help.tableau.com/current/online/en-us/connected_apps_troubleshoot.htm" target={"_blank"} rel="noreferrer">Troubleshoot Connected Apps</a>
+                  &nbsp;documentation to give you an idea of how to fix it.
+                </p>
+              </div>
+            </div>
+          </div>
+          <div className="text-lg max-w-prose mx-auto">
+            <div className="mt-6 prose prose-blue prose-lg text-gray-500 mx-auto mb-20">
+              <h2>Generate the token</h2>
+              <p>
+                Now we've got the information we need from Tableau Server let's dive into some code to generate the signed JWT. In the example below we'll be using
+                NodeJS which can be used in Vercel serverless functions and AWS Lambda. If you're using a different code the list below defining what you need for your
+                JWT is still valid.
+              </p>
+              <div className="flex flex-col">
+                <div className="-my-2 -mx-4 overflow-x-auto sm:-mx-6 lg:-mx-8">
+                  <div className="inline-block min-w-full py-2 align-middle">
+                    <div className="overflow-hidden shadow-sm">
+                      <table className="min-w-full divide-y divide-gray-300">
+                        <thead>
+                          <tr>
+                            <th
+                              scope="col"
+                              className="py-3.5 pl-4 pr-3 text-left text-sm font-semibold text-gray-900 sm:pl-6 lg:pl-8"
+                            >
+                              JWT Setting
+                            </th>
+                            <th scope="col" className="px-3 py-3.5 text-left text-sm font-semibold text-gray-900">
+                              Claim
+                            </th>
+                            <th scope="col" className="px-3 py-3.5 text-left text-sm font-semibold text-gray-900">
+                              Value
+                            </th>
+                            <th scope="col" className="px-3 py-3.5 text-left text-sm font-semibold text-gray-900">
+                              Comment
+                            </th>
+                          </tr>
+                        </thead>
+                        <tbody className="bg-white">
+                            <tr className='border-b-0'>
+                              <td className="whitespace-nowrap py-4 pl-4 pr-3 text-sm font-medium text-gray-900 sm:pl-6 lg:pl-8">
+                                Payload
+                              </td>
+                              <td className="whitespace-nowrap px-3 py-4 text-sm text-gray-500">iss</td>
+                              <td className="whitespace-nowrap px-3 py-4 text-sm text-gray-500">Client ID</td>
+                              <td className="px-3 py-4 text-sm text-gray-500">The Client ID created when adding the connected app to Tableau Server</td>
+                            </tr>
+                            <tr className='border-b-0 border-t-0'>
+                              <td className="whitespace-nowrap py-4 pl-4 pr-3 text-sm font-medium text-gray-900 sm:pl-6 lg:pl-8"></td>
+                              <td className="whitespace-nowrap px-3 py-4 text-sm text-gray-500">sub</td>
+                              <td className="whitespace-nowrap px-3 py-4 text-sm text-gray-500">Username/Email</td>
+                              <td className="px-3 py-4 text-sm text-gray-500">Your username/email from logging into Tableau Server or Online</td>
+                            </tr>
+                            <tr className='border-b-0 border-t-0'>
+                              <td className="whitespace-nowrap py-4 pl-4 pr-3 text-sm font-medium text-gray-900 sm:pl-6 lg:pl-8"></td>
+                              <td className="whitespace-nowrap px-3 py-4 text-sm text-gray-500">aud</td>
+                              <td className="whitespace-nowrap px-3 py-4 text-sm text-gray-500">"tableau"</td>
+                              <td className="px-3 py-4 text-sm text-gray-500">Really simple, just the string "tabelau"</td>
+                            </tr>
+                            <tr className='border-b-0 border-t-0'>
+                              <td className="whitespace-nowrap py-4 pl-4 pr-3 text-sm font-medium text-gray-900 sm:pl-6 lg:pl-8"></td>
+                              <td className="whitespace-nowrap px-3 py-4 text-sm text-gray-500">exp</td>
+                              <td className="whitespace-nowrap px-3 py-4 text-sm text-gray-500">Token Expiry</td>
+                              <td className="px-3 py-4 text-sm text-gray-500">
+                                Expiry time of your token. Unix time in seconds that can't be more than 10 minutes from the time the token is used based on the
+                                server's system time.
+                              </td>
+                            </tr>
+                            <tr className='border-b-0 border-t-0'>
+                              <td className="whitespace-nowrap py-4 pl-4 pr-3 text-sm font-medium text-gray-900 sm:pl-6 lg:pl-8"></td>
+                              <td className="whitespace-nowrap px-3 py-4 text-sm text-gray-500">jti</td>
+                              <td className="whitespace-nowrap px-3 py-4 text-sm text-gray-500">UUID</td>
+                              <td className="px-3 py-4 text-sm text-gray-500">A random string of characters which are unique from any other token</td>
+                            </tr>
+                            <tr className='border-t-0'>
+                              <td className="whitespace-nowrap py-4 pl-4 pr-3 text-sm font-medium text-gray-900 sm:pl-6 lg:pl-8"></td>
+                              <td className="whitespace-nowrap px-3 py-4 text-sm text-gray-500">scp</td>
+                              <td className="whitespace-nowrap px-3 py-4 text-sm text-gray-500">["tableau:views:embed",<br/> "tableau:metrics:embed"]</td>
+                              <td className="px-3 py-4 text-sm text-gray-500">The token scope is an array of strings allowing viewing of Tableau views and metrics</td>
+                            </tr>
+                            <tr>
+                              <td className="whitespace-nowrap py-4 pl-4 pr-3 text-sm font-medium text-gray-900 sm:pl-6 lg:pl-8">
+                                Secret
+                              </td>
+                              <td className="whitespace-nowrap px-3 py-4 text-sm text-gray-500">secret</td>
+                              <td className="whitespace-nowrap px-3 py-4 text-sm text-gray-500">Secret Value</td>
+                              <td className="px-3 py-4 text-sm text-gray-500">The Secret Value created when adding the connected app to Tableau Server</td>
+                            </tr>
+                            <tr className='border-b-0'>
+                              <td className="whitespace-nowrap py-4 pl-4 pr-3 text-sm font-medium text-gray-900 sm:pl-6 lg:pl-8">
+                                Headers
+                              </td>
+                              <td className="whitespace-nowrap px-3 py-4 text-sm text-gray-500">kid</td>
+                              <td className="whitespace-nowrap px-3 py-4 text-sm text-gray-500">Secret ID</td>
+                              <td className="px-3 py-4 text-sm text-gray-500">The Secret ID created when adding the connected app to Tableau Server</td>
+                            </tr>
+                            <tr className='border-t-0'>
+                              <td className="whitespace-nowrap py-4 pl-4 pr-3 text-sm font-medium text-gray-900 sm:pl-6 lg:pl-8"></td>
+                              <td className="whitespace-nowrap px-3 py-4 text-sm text-gray-500">iss</td>
+                              <td className="whitespace-nowrap px-3 py-4 text-sm text-gray-500">Client ID</td>
+                              <td className="px-3 py-4 text-sm text-gray-500">The Client ID created when adding the connected app to Tableau Server</td>
+                            </tr>
+                            <tr>
+                              <td className="whitespace-nowrap py-4 pl-4 pr-3 text-sm font-medium text-gray-900 sm:pl-6 lg:pl-8">
+                                Options
+                              </td>
+                              <td className="whitespace-nowrap px-3 py-4 text-sm text-gray-500">algorithm</td>
+                              <td className="whitespace-nowrap px-3 py-4 text-sm text-gray-500">"HS256"</td>
+                              <td className="px-3 py-4 text-sm text-gray-500">Tableau requires HS256 for JWTs</td>
+                            </tr>
+                        </tbody>
+                      </table>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <p>
+                Obviously the method you use to create your JWT will depend upon the code and potentially package you use on the server side. In this NodeJS example
+                we'll make use of the <a href='https://www.npmjs.com/package/jsonwebtoken' target={'blank'} rel="noreferrer">jsonwebtoken</a> package to sign the JWT
+                as well as <a href="https://www.npmjs.com/package/uuid" target={'blank'} rel="noreferrer">uuid</a> to create the token's unique identifier (<b>jti</b>).
+              </p>
+              <pre><code className="language-javascript">{`var jwt = require('jsonwebtoken');
+const { v1: uuidv1 } = require('uuid');
+
+module.exports = (req, res) => {
+  const username = "craig";
+  const uuid = uuidv1();
+  const timenow = new Date().getTime();
+  const expiry = new Date().getTime() + (5 * 60 * 1000);
+  var token = jwt.sign({
+        iss: process.env.Tableau_JWT_ClientId,
+        sub: username,
+        aud: "tableau",
+        exp: expiry / 1000,
+        iat: timenow / 1000,
+        jti: uuid,
+        scp: ["tableau:views:embed", "tableau:metrics:embed"]
+      },
+      process.env.Tableau_JWT_SecretValue,
+      {
+          algorithm: 'HS256',
+          header: {
+            'kid': process.env.Tableau_JWT_SecretId,
+            'iss': process.env.Tableau_JWT_ClientId
+          }
+        }
+        );
+  res.send(token);
+};`}
+              </code></pre>
+              <p>
+                In this example the <b>username</b> is a fixed value however should be dynamic and based on the user that's logged into the web app. The <b>Client ID</b>,
+                <b>Secret ID</b> and <b>Secret Value</b> values are accessed via environment variables.
+              </p>
+              <p>
+                The example embed at the top of this page is using this code and is accessed via the API <a href="/ap/jwt" target={'blank'} rel="noreferrer">/api/jwt</a> hosted
+                by this website. Each time the page is loaded the API endpoint generates a new token. Here's the result of the API being queried live:
+              </p>
+              <iframe className="word-wrap w-full h-20 rounded-lg shadow-lg object-cover object-center" src='http://localhost:3000/api/jwt'></iframe>
+              <p>That's it for server side! We have our token, now let's go on to use it in our web app.</p>
             </div>
           </div>
         </div>

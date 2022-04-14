@@ -13,6 +13,12 @@ module.exports = {
                 textDecoration: 'underline',
               },
             },
+            p: {
+              fontSize: '1rem'
+            },
+            li: {
+              fontSize: '1rem'
+            }
           },
         },
       },
@@ -20,5 +26,6 @@ module.exports = {
   },
   plugins: [
     require('@tailwindcss/typography'),
+    require('@tailwindcss/forms'),
   ],
 }
