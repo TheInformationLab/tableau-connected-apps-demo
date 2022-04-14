@@ -1,5 +1,5 @@
 import './App.css';
-import { Fragment } from 'react'
+import { Fragment, useEffect, useState } from 'react'
 import { Popover, Transition } from '@headlessui/react'
 import { MenuIcon, XIcon } from '@heroicons/react/outline'
 import TableauEmbed from './components/TableauEmbed/TableauEmbed';
@@ -19,7 +19,28 @@ const navigation = [
   { name: 'Tableau in React', href: '#' },
 ]
 
+const getWidth = () =>
+  window.innerWidth ||
+  document.documentElement.clientWidth ||
+  document.body.clientWidth;
+
 export default function App() {
+  const [ mobile, setMobile ] = useState();
+
+  const handleWindowSizeChange = () => {
+    const width = getWidth();
+    setMobile(width <= 1050);
+  }
+
+  useEffect(() => {
+    const width = getWidth();
+    setMobile(width <= 1050);
+    window.addEventListener('resize', handleWindowSizeChange);
+      return () => {
+          window.removeEventListener('resize', handleWindowSizeChange);
+      }
+  }, [])
+
   return (
     <div className="bg-gray-50">
       <div className="relative overflow-hidden">
@@ -170,7 +191,7 @@ export default function App() {
             <div
               className="relative rounded-lg shadow-lg bg-white pt-20"
             >
-              <TableauEmbed />
+              <TableauEmbed mobile={mobile}/>
               <img src={ConnectedAppImg} width={200} className="bottom-16 absolute right-16 z-50"/>
             </div>
           </div>
@@ -347,7 +368,7 @@ export default function App() {
         </div>
         <div className='absolute z-10'>
         <Sticky>
-          <ToDoList />
+          <ToDoList mobile={mobile}/>
         </Sticky>
         </div>
         <div className="relative px-4 sm:px-6 lg:px-8">
