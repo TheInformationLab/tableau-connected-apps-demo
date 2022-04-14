@@ -4,6 +4,8 @@ import { Popover, Transition } from '@headlessui/react'
 import { MenuIcon, XIcon } from '@heroicons/react/outline'
 import TableauEmbed from './components/TableauEmbed/TableauEmbed';
 import ConnectedAppImg from './img/connectedapp.svg';
+import ToDoList from './components/ToDoList/ToDoList';
+import Sticky from 'react-sticky-el';
 
 const navigation = [
   { name: 'Straight to Code', href: '#' },
@@ -336,6 +338,11 @@ export default function App() {
                 this can easily be ported across into AWS Lambda or a standard NodeJS Server.
               </p>
             </div>
+        <div className='absolute z-10'>
+        <Sticky>
+          <ToDoList />
+        </Sticky>
+        </div>
             <h1>
               <span className="block text-base text-center text-blue-600 font-semibold tracking-wide uppercase">
                 Server Side
