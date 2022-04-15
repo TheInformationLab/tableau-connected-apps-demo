@@ -2,21 +2,23 @@ import './App.css';
 import { Fragment, useEffect, useState } from 'react'
 import { Popover, Transition } from '@headlessui/react'
 import { MenuIcon, XIcon } from '@heroicons/react/outline'
+import AnchorLink from 'react-anchor-link-smooth-scroll';
 import TableauEmbed from './components/TableauEmbed/TableauEmbed';
 import ConnectedAppImg from './img/connectedapp.svg';
 import CreateConnectedAppImg from './img/createConnectedApp.png';
 import CreateSecretGif from './img/createSecret.gif';
 import EmbedPlaygroundImg from './img/embedPlayground.png';
+import BubblesImg from './img/bubbles.svg';
 import ToDoList from './components/ToDoList/ToDoList';
 import Sticky from 'react-sticky-el';
 import Prism from 'prismjs';
 import "./prism.css";
 
 const navigation = [
-  { name: 'Straight to Code', href: '#' },
-  { name: 'Getting Started', href: '#' },
-  { name: 'Server Side', href: '#' },
-  { name: 'Tableau in React', href: '#' },
+  { name: 'Straight to Code', href: '#code' },
+  { name: 'Getting Started', href: '#start' },
+  { name: 'Server Side', href: '#server' },
+  { name: 'Tableau in React', href: '#react' },
 ]
 
 const getWidth = () =>
@@ -97,12 +99,12 @@ export default function App() {
               <nav className="relative flex items-center justify-between sm:h-10 md:justify-center" aria-label="Global">
                 <div className="flex items-center flex-1 md:absolute md:inset-y-0 md:left-0">
                   <div className="flex items-center justify-between w-full md:w-auto">
-                    <a href="#">
+                    <a href="https://www.theinformationlab.co.uk">
                       <span className="sr-only">Workflow</span>
                       <img
                         className="h-8 w-auto sm:h-10"
-                        src="https://tailwindui.com/img/logos/workflow-mark-blue-600.svg"
-                        alt=""
+                        src={BubblesImg}
+                        alt="The Information Lab"
                       />
                     </a>
                     <div className="-mr-2 flex items-center md:hidden">
@@ -115,9 +117,9 @@ export default function App() {
                 </div>
                 <div className="hidden md:flex md:space-x-10">
                   {navigation.map((item) => (
-                    <a key={item.name} href={item.href} className="font-medium text-gray-500 hover:text-gray-900">
+                    <AnchorLink key={item.name} href={item.href} className="font-medium text-gray-500 hover:text-gray-900">
                       {item.name}
-                    </a>
+                    </AnchorLink>
                   ))}
                 </div>
               </nav>
@@ -141,8 +143,8 @@ export default function App() {
                     <div>
                       <img
                         className="h-8 w-auto"
-                        src="https://tailwindui.com/img/logos/workflow-mark-blue-600.svg"
-                        alt=""
+                        src={BubblesImg}
+                        alt="The Information Lab"
                       />
                     </div>
                     <div className="-mr-2">
@@ -154,13 +156,13 @@ export default function App() {
                   </div>
                   <div className="px-2 pt-2 pb-3 space-y-1">
                     {navigation.map((item) => (
-                      <a
+                      <AnchorLink
                         key={item.name}
                         href={item.href}
                         className="block px-3 py-2 rounded-md text-base font-medium text-gray-700 hover:text-gray-900 hover:bg-gray-50"
                       >
                         {item.name}
-                      </a>
+                      </AnchorLink>
                     ))}
                   </div>
                 </div>
@@ -200,6 +202,7 @@ export default function App() {
           </div>
         </div>
       </div>
+      <section id='code'>
       <div className="bg-gray-800">
         <div className="max-w-7xl mx-auto py-16 px-4 sm:py-24 sm:px-6 lg:px-8">
           <h2 className="text-center text-gray-400 text-sm font-semibold uppercase tracking-wide">
@@ -241,6 +244,7 @@ export default function App() {
           </div>
         </div>
       </div>
+      </section>
       <div className="relative pt-16 bg-white overflow-hidden">
         <div className="hidden lg:block lg:absolute lg:inset-y-0 lg:h-full lg:w-full">
           <div className="relative h-full text-lg max-w-prose mx-auto" aria-hidden="true">
@@ -309,6 +313,7 @@ export default function App() {
             </svg>
           </div>
         </div>
+        <section id='start'>
         <div className="relative px-4 sm:px-6 lg:px-8">
           <div className="text-lg max-w-prose mx-auto">
             <h1>
@@ -369,6 +374,8 @@ export default function App() {
             </div>
           </div>
         </div>
+        </section>
+        <section id='server'>
         <div className="relative px-4 sm:px-6 lg:px-8">
           <div className="text-lg max-w-prose mx-auto">
             <h1>
@@ -656,6 +663,7 @@ module.exports = (req, res) => {
             </div>
           </div>
         </div>
+        </section>
       </div>
       <div className="relative pb-16 bg-white overflow-hidden">
         <div className="hidden lg:block lg:absolute lg:inset-y-0 lg:h-full lg:w-full">
@@ -725,6 +733,7 @@ module.exports = (req, res) => {
             </svg>
           </div>
         </div>
+        <section id='react'>
         <div className="relative px-4 sm:px-6 lg:px-8">
           <div className="text-lg max-w-prose mx-auto">
             <h1>
@@ -740,7 +749,7 @@ module.exports = (req, res) => {
                 Now we have our JWT we can make use of the Tableau Embedding API v3 to place the dashboard in our web app. As we mentioned
                 earlier this tutorial is going to focus on the using React however much of the content also applies to HTML and other JS frameworks.
               </p>
-              <h2>Here's a React Component We Prepared Earlier</h2>
+              <h2>Here's a React Component Ready to Go</h2>
               <p>
                 If you're thinking that setting up the JWT was too much of your time and you just want to get on with some embedding 
                 then <a 
@@ -761,6 +770,7 @@ module.exports = (req, res) => {
             </div>
           </div>
         </div>
+        </section>
       </div>
     </div>
   )
