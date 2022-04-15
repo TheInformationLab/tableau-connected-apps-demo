@@ -4,7 +4,7 @@ import { useCookies } from 'react-cookie';
 import { Transition } from '@headlessui/react'
 
 const ToDoList = (props) => {
-  const [cookies, setCookie] = useCookies(['createConnectedApp', 'generateSecret', 'createToken']);
+  const [cookies, setCookie] = useCookies(['createConnectedApp', 'generateSecret', 'createToken','importComponent','insertConfigure']);
   const [menuOpen, setMenuOpen] = useState(!props.mobile);
 
   useEffect(() => {
@@ -110,6 +110,60 @@ const ToDoList = (props) => {
           </label>
           <p id="createToken-description" className="text-gray-500">
             Write some server side code to generate a JSON Web Token
+          </p>
+        </div>
+      </div>
+      <div className="relative flex items-start">
+        <div className="flex items-center h-5">
+          <input
+            id="importComponent"
+            aria-describedby="importComponent-description"
+            name="importComponent"
+            type="checkbox"
+            onChange={() => {
+              if (cookies.importComponent === "1") {
+                setCookie('importComponent', "0", { path: '/' });
+              } else {
+                setCookie('importComponent', "1", { path: '/' });
+              }
+            }}
+            checked={cookies.importComponent === "1" || false}
+            className="focus:ring-blue-500 h-4 w-4 text-blue-600 border-gray-300 rounded"
+          />
+        </div>
+        <div className="ml-3 text-sm">
+          <label htmlFor="importComponent" className="font-medium text-gray-700">
+            Import Tableau Component
+          </label>
+          <p id="importComponent-description" className="text-gray-500">
+            Import the TableauEmbed React component to you web app
+          </p>
+        </div>
+      </div>
+      <div className="relative flex items-start">
+        <div className="flex items-center h-5">
+          <input
+            id="insertConfigure"
+            aria-describedby="insertConfigure-description"
+            name="insertConfigure"
+            type="checkbox"
+            onChange={() => {
+              if (cookies.insertConfigure === "1") {
+                setCookie('insertConfigure', "0", { path: '/' });
+              } else {
+                setCookie('insertConfigure', "1", { path: '/' });
+              }
+            }}
+            checked={cookies.insertConfigure === "1" || false}
+            className="focus:ring-blue-500 h-4 w-4 text-blue-600 border-gray-300 rounded"
+          />
+        </div>
+        <div className="ml-3 text-sm">
+          <label htmlFor="insertConfigure" className="font-medium text-gray-700">
+            Insert & Configure
+          </label>
+          <p id="insertConfigure-description" className="text-gray-500">
+            Insert & configure the TableauEmbed component
           </p>
         </div>
       </div>
