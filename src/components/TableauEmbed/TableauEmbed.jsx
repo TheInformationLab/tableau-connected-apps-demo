@@ -15,6 +15,8 @@ const TableauEmbed = (props) => {
 
   const vizRef = useRef(null);
 
+  // *** Load the viz in to the component by setting the viz variable with the tableau-viz component
+
   const loadViz = () => {
     const showMobile = width <= 1050;
 
@@ -30,6 +32,8 @@ const TableauEmbed = (props) => {
       />
     );
   };
+
+  // *** On load fetch the JWT via the api path /api/jwt
 
   useEffect(() => {
       fetch(props.tokenUrl)
@@ -48,7 +52,12 @@ const TableauEmbed = (props) => {
       .finally(() => {
         setLoading(false);
       })
+  // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
+
+
+  // *** When the TableauEmbed component receives a token or the token changes the loadViz()
+  //     function is executed to load the Tableau dashboard
 
   useEffect(() => {
     if (token) {
@@ -57,13 +66,21 @@ const TableauEmbed = (props) => {
   // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [token])
 
+
+
+  // *** Display loading or error state or retriving a token instead of loading dashboard
+
   if (loading) return "Loading..."
   if (error) return "Error! " + JSON.stringify(error);
+
+
+
+  // *** If the token is present then return the embedding API library with the tableau-viz component
 
   return (
   <>
     <Helmet> 
-      <script type="module" src="https://public.tableau.com/javascripts/api/tableau.embedding.3.1.0.min.js" async></script>
+      <script type="module" src="https://embedding.tableauusercontent.com/tableau.embedding.3.1.0.min.js" async></script>
     </Helmet>
     <div className='mx-0'>
       {viz}

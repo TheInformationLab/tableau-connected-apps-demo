@@ -21,6 +21,45 @@ const navigation = [
   { name: 'Tableau in React', href: '#react' },
 ]
 
+const footerNavigation = {
+  main: [
+    { name: 'More Embedding', href: 'https://embedding.theinformationlab.co.uk/' },
+    { name: 'Info Lab Blog', href: 'https://www.theinformationlab.co.uk/category/blog/' },
+    { name: 'The Data School', href: 'https://www.thedataschool.co.uk' },
+  ],
+  social: [
+    {
+      name: 'YouTube',
+      href: 'https://www.youtube.com/c/TheInformationLabCoUK',
+      icon: (props) => (
+        <svg fill="currentColor"  viewBox="-35.20005 -41.33325 305.0671 247.9995" {...props}><path d="M93.333 117.559V47.775l61.334 34.893zm136.43-91.742c-2.699-10.162-10.651-18.165-20.747-20.881C190.716 0 117.333 0 117.333 0S43.951 0 25.651 4.936C15.555 7.652 7.603 15.655 4.904 25.817 0 44.236 0 82.667 0 82.667s0 38.429 4.904 56.849c2.699 10.163 10.65 18.165 20.747 20.883 18.3 4.934 91.682 4.934 91.682 4.934s73.383 0 91.683-4.934c10.096-2.718 18.048-10.72 20.747-20.883 4.904-18.42 4.904-56.85 4.904-56.85s0-38.43-4.904-56.849"/></svg>
+      ),
+    },
+    {
+      name: 'Twitter',
+      href: 'https://twitter.com/infolabUK',
+      icon: (props) => (
+        <svg fill="currentColor" viewBox="0 0 24 24" {...props}>
+          <path d="M8.29 20.251c7.547 0 11.675-6.253 11.675-11.675 0-.178 0-.355-.012-.53A8.348 8.348 0 0022 5.92a8.19 8.19 0 01-2.357.646 4.118 4.118 0 001.804-2.27 8.224 8.224 0 01-2.605.996 4.107 4.107 0 00-6.993 3.743 11.65 11.65 0 01-8.457-4.287 4.106 4.106 0 001.27 5.477A4.072 4.072 0 012.8 9.713v.052a4.105 4.105 0 003.292 4.022 4.095 4.095 0 01-1.853.07 4.108 4.108 0 003.834 2.85A8.233 8.233 0 012 18.407a11.616 11.616 0 006.29 1.84" />
+        </svg>
+      ),
+    },
+    {
+      name: 'GitHub',
+      href: 'https://github.com/TheInformationLab',
+      icon: (props) => (
+        <svg fill="currentColor" viewBox="0 0 24 24" {...props}>
+          <path
+            fillRule="evenodd"
+            d="M12 2C6.477 2 2 6.484 2 12.017c0 4.425 2.865 8.18 6.839 9.504.5.092.682-.217.682-.483 0-.237-.008-.868-.013-1.703-2.782.605-3.369-1.343-3.369-1.343-.454-1.158-1.11-1.466-1.11-1.466-.908-.62.069-.608.069-.608 1.003.07 1.531 1.032 1.531 1.032.892 1.53 2.341 1.088 2.91.832.092-.647.35-1.088.636-1.338-2.22-.253-4.555-1.113-4.555-4.951 0-1.093.39-1.988 1.029-2.688-.103-.253-.446-1.272.098-2.65 0 0 .84-.27 2.75 1.026A9.564 9.564 0 0112 6.844c.85.004 1.705.115 2.504.337 1.909-1.296 2.747-1.027 2.747-1.027.546 1.379.202 2.398.1 2.651.64.7 1.028 1.595 1.028 2.688 0 3.848-2.339 4.695-4.566 4.943.359.309.678.92.678 1.855 0 1.338-.012 2.419-.012 2.747 0 .268.18.58.688.482A10.019 10.019 0 0022 12.017C22 6.484 17.522 2 12 2z"
+            clipRule="evenodd"
+          />
+        </svg>
+      ),
+    },
+  ],
+}
+
 const getWidth = () =>
   window.innerWidth ||
   document.documentElement.clientWidth ||
@@ -332,7 +371,7 @@ export default function App() {
             <div className="mt-6 prose prose-blue prose-lg text-md text-gray-500 mx-auto mb-20">
               <h2>Reference Material</h2>
               <ul>
-                <li>Tableau Embedding API v3</li>
+                <li><a href="https://help.tableau.com/current/api/embedding_api/en-us/index.html" target={"_blank"} rel="noreferrer">Tableau Embedding API v3</a></li>
                 <li><a href="https://help.tableau.com/current/online/en-us/connected_apps.htm" target={"_blank"} rel="noreferrer">How Connected Apps Work</a></li>
                 <li><a href="https://help.tableau.com/current/online/en-us/connected_apps_troubleshoot.htm" target={"_blank"} rel="noreferrer">Troubleshoot Connected Apps</a></li>
               </ul>
@@ -738,7 +777,7 @@ module.exports = (req, res) => {
           <div className="text-lg max-w-prose mx-auto">
             <h1>
               <span className="block text-base text-center text-blue-600 font-semibold tracking-wide uppercase">
-                Client Side
+                Tableau in React
               </span>
               <span className="mt-2 block text-3xl text-center leading-8 font-extrabold tracking-tight text-gray-900 sm:text-4xl">
                 Embedding in your Web App
@@ -758,7 +797,9 @@ module.exports = (req, res) => {
                 >here's the React component you need</a>. To make use of it simply import it into and add the snippet:
                 <pre>
                   <code className="language-javascript">
-{`<TableauEmbed 
+{`import TableauEmbed from './components/TableauEmbed/TableauEmbed';
+
+<TableauEmbed 
   viewUrl={"https://online.tableau.com/t/PublicDemo/views/IncomeStatement/IncomeStatement"}
   tokenUrl={"/api/jwt"}
 />`}     
@@ -767,11 +808,128 @@ module.exports = (req, res) => {
                 <p>Where <b>viewURL</b> is the url of the dashboard you want to embed and <b>tokenUrl</b> is the url or path to retrieve the JWT
                 you created earlier. In this case it's via the path <code>/api/jwt</code> which is part of this web app.</p>
               </p>
+              <h2>How it works</h2>
+              <p>
+                The TableauEmbed component is kept purposely simple to allow you to customise it as you wish. First of all the star of the show is
+                the Tableau Embedding API.
+              </p>
+              <h3>Import the Tableau Embedding API</h3>
+              <p>
+                The Tableau Embedding API version 3 is made available in Tableau Server specific versions from 2021.4 onwards in both standard and
+                minified javascript libraries. You can access the library via:
+              </p>
+                <ul>
+                  <li><b>Your on premise Tableau Server</b>: https://[YourServerURL]/javascripts/api/tableau.embedding.[version].js</li>
+                  <li><b>Tableau Online</b>: https://online.tableau.com/javascripts/api/tableau.embedding.[version].js</li>
+                  <li><b>Tableau Public</b>: https://public.tableau.com/javascripts/api/tableau.embedding.[version].js</li>
+                  <li><b>Tableau's CDN</b>: https://embedding.tableauusercontent.com/tableau.embedding.[version].js</li>
+                </ul>
+              <p>
+                This libary can't be imported in React and so must be added to the HTML header. While you can add it to the root index.html
+                page this will load it into the app whether it's needed or not. A more efficient method is to use <b>Helmet</b> as it will only
+                load the libary when the TableauEmbed component is utilised.
+              </p>
+              <pre>
+                <code className="language-javascript">
+{`<Helmet> 
+  <script type="module" src="https://embedding.tableauusercontent.com/tableau.embedding.3.1.0.min.js" async></script>
+</Helmet>`}
+                </code>
+              </pre>
+              <h3>Get the Token</h3>
+              <p>
+                Let's make use of all our great work generating the JWT on our server. In the Vercel hosting environment we can surface the token
+                via a serverless API function under the path <code>/api/jwt</code>. When the TableauEmbed component is loaded it uses the native 
+                React <code>fetch()</code> function via <code>useEffect()</code> to grab the token from the API.
+              </p>
+              <pre>
+                <code className="language-javascript">
+{`useEffect(() => {
+  fetch(props.tokenUrl)
+  .then(response => {
+    if (response.ok) {
+      return response.text();
+    }
+    throw response;
+  })
+  .then(data => {
+    setToken(data);
+  })
+  .catch(error => {
+    setError(error);
+  })
+  .finally(() => {
+    setLoading(false);
+  })
+}, []);`}
+              </code>
+              </pre>
+              <h3>Implement tableau-viz</h3>
+              <p>
+                The star of the embedding API v3 is the tableau-viz web component. It allows for easy embedding of Tableau objects (views, dashboards
+                and metrics). In TableauEmbed it's loaded into the viz variable when the token is set.
+              </p>
+              <pre>
+                <code className="language-javascript">
+{`const vizRef = useRef(null);
+
+const loadViz = () => {
+  const showMobile = width <= 1050;
+
+  setViz(
+    <tableau-viz 
+      ref={vizRef}
+      id="tableauViz"       
+      src={props.viewUrl}
+      device={showMobile ? "phone" : "desktop"}
+      hide-tabs={false}
+      token={token}
+      toolbar='hidden'
+    />
+  );
+};
+
+...
+
+useEffect(() => {
+  if (token) {
+    loadViz();
+  }
+}, [token])`}
+              </code>
+              </pre>
+              <p>
+                That's it, you should be good to go! Thanks for following along & we hope you learned something. If you'd like some extra
+                help why not get in touch with The Information Lab via <a href="mailto:info@theinformationlab.co.uk">info@theinformationlab.co.uk</a>
+              </p>
             </div>
           </div>
         </div>
         </section>
       </div>
+      <footer className="mt-24 bg-gray-900 sm:mt-12">
+          <div className="mx-auto max-w-md py-12 px-4 overflow-hidden sm:max-w-3xl sm:px-6 lg:max-w-7xl lg:px-8">
+            <nav className="-mx-5 -my-2 flex flex-wrap justify-center" aria-label="Footer">
+              {footerNavigation.main.map((item) => (
+                <div key={item.name} className="px-5 py-2">
+                  <a href={item.href} className="text-base text-gray-400 hover:text-gray-300">
+                    {item.name}
+                  </a>
+                </div>
+              ))}
+            </nav>
+            <div className="mt-8 flex justify-center space-x-6">
+              {footerNavigation.social.map((item) => (
+                <a key={item.name} href={item.href} className="text-gray-400 hover:text-gray-300">
+                  <span className="sr-only">{item.name}</span>
+                  <item.icon className="h-6 w-6" aria-hidden="true" />
+                </a>
+              ))}
+            </div>
+            <p className="mt-8 text-center text-base text-gray-400">&copy; 2022 The Information Lab</p>
+          </div>
+        </footer>
     </div>
+    
   )
 }
