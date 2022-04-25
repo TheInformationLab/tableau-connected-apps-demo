@@ -529,15 +529,15 @@ export default function App() {
             <div className="mt-8 lg:mt-0 xl:grid xl:grid-cols-2">
               <div className="prose prose-blue prose-lg text-gray-500  lg:row-start-1 lg:col-start-2">
                 <h2>Test Your Connected App</h2>
+                <p>Before you go any further test out the connected app configuration.</p>
+                <ol>
+                  <li>Go to the <a href="https://playground.theinformationlab.io/" target={"_blank"} rel="noreferrer">Tableau Embedded Analytics Playground</a></li>
+                  <li>Enter the URL of the dashboard you intend to embed. Tip: Remove any part of the URL after & including the '?'</li>
+                  <li>Under <b>JWT Settings</b> enter your Tableau Server username (or email address for Tableau Online)</li>
+                  <li>Copy and paste the Client ID, Secret ID and Secret Values we saved earlier</li>
+                  <li>Click the <b>Get started</b> or <b>Generate Embed</b> button</li>
+                </ol>
                 <p>
-                  Before you go any further test out the connected app configuration.
-                  <ol>
-                    <li>Go to the <a href="https://playground.theinformationlab.io/" target={"_blank"} rel="noreferrer">Tableau Embedded Analytics Playground</a></li>
-                    <li>Enter the URL of the dashboard you intend to embed. Tip: Remove any part of the URL after & including the '?'</li>
-                    <li>Under <b>JWT Settings</b> enter your Tableau Server username (or email address for Tableau Online)</li>
-                    <li>Copy and paste the Client ID, Secret ID and Secret Values we saved earlier</li>
-                    <li>Click the <b>Get started</b> or <b>Generate Embed</b> button</li>
-                  </ol>
                   If all works as expected your dashboard should load into view. If you see an error code take a look at the&nbsp;
                   <a href="https://help.tableau.com/current/online/en-us/connected_apps_troubleshoot.htm" target={"_blank"} rel="noreferrer">Troubleshoot Connected Apps</a>
                   &nbsp;documentation to give you an idea of how to fix it.
@@ -795,19 +795,19 @@ module.exports = (req, res) => {
                   href={"https://github.com/TheInformationLab/tableau-connected-apps-demo/blob/205ced9fb69499a4cf042c451d31d173aa3c8f49/src/components/TableauEmbed/TableauEmbed.jsx"}
                   target={'blank'} rel="noreferrer"
                 >here's the React component you need</a>. To make use of it simply import it into and add the snippet:
-                <pre>
-                  <code className="language-javascript">
+              </p>
+              <pre>
+                <code className="language-javascript">
 {`import TableauEmbed from './components/TableauEmbed/TableauEmbed';
 
 <TableauEmbed 
   viewUrl={"https://online.tableau.com/t/PublicDemo/views/IncomeStatement/IncomeStatement"}
   tokenUrl={"/api/jwt"}
 />`}     
-                  </code>
-                </pre>
-                <p>Where <b>viewURL</b> is the url of the dashboard you want to embed and <b>tokenUrl</b> is the url or path to retrieve the JWT
-                you created earlier. In this case it's via the path <code>/api/jwt</code> which is part of this web app.</p>
-              </p>
+                </code>
+              </pre>
+              <p>Where <b>viewURL</b> is the url of the dashboard you want to embed and <b>tokenUrl</b> is the url or path to retrieve the JWT
+              you created earlier. In this case it's via the path <code>/api/jwt</code> which is part of this web app.</p>
               <h2>How it works</h2>
               <p>
                 The TableauEmbed component is kept purposely simple to allow you to customise it as you wish. First of all the star of the show is
