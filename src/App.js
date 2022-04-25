@@ -230,7 +230,7 @@ export default function App() {
           </div>
           <div className="max-w-7xl mx-auto px-4 sm:px-6">
             <div
-              className="relative rounded-lg shadow-lg bg-white pt-20"
+              className="relative rounded-lg shadow-lg bg-white md:pt-20 pt-0"
             >
               <TableauEmbed 
                 viewUrl={"https://clientreporting.theinformationlab.co.uk/t/PublicDemo/views/IncomeStatement/IncomeStatement"}

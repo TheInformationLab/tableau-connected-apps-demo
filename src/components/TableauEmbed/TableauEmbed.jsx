@@ -1,5 +1,6 @@
 import React, { useEffect, useState, useRef } from 'react';
 import { Helmet } from "react-helmet";
+import StaticDashboardImg from '../../img/staticDashboard.png';
 
 const getWidth = () =>
   window.innerWidth ||
@@ -12,8 +13,21 @@ const TableauEmbed = (props) => {
   const [ loading, setLoading ] = useState(true);
   const [ error, setError ] = useState();
   const [ width, setWidth ] = useState(getWidth());
+  const [ vizReady, setVizReady ] = useState(false);
 
   const vizRef = useRef(null);
+
+  const vizIsReady = async (event) => {
+    setVizReady(true);
+  }
+
+  useEffect(() => {
+    console.log('[App.js] VizRef', vizRef);
+    if (vizRef.current) {
+      const vizEl = vizRef.current;
+      vizEl.addEventListener("firstinteractive", vizIsReady);
+    }
+  }, [vizRef])
 
   // *** Load the viz in to the component by setting the viz variable with the tableau-viz component
 
@@ -26,9 +40,11 @@ const TableauEmbed = (props) => {
         id="tableauViz"       
         src={props.viewUrl}
         device={showMobile ? "phone" : "desktop"}
-        hide-tabs={false}
+        hide-tabs={true}
         token={token}
         toolbar='hidden'
+        width={'max-w-full'}
+        touch-optimize={showMobile}
       />
     );
   };
@@ -62,6 +78,10 @@ const TableauEmbed = (props) => {
   useEffect(() => {
     if (token) {
       loadViz();
+      setTimeout(() => {
+        const vizEl = vizRef.current;
+        vizEl.addEventListener("firstinteractive", vizIsReady);
+      }, 1000)
     }
   // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [token])
@@ -72,9 +92,6 @@ const TableauEmbed = (props) => {
 
   if (loading) return "Loading..."
   if (error) return "Error! " + JSON.stringify(error);
-
-
-
   // *** If the token is present then return the embedding API library with the tableau-viz component
 
   return (
@@ -82,8 +99,11 @@ const TableauEmbed = (props) => {
     <Helmet> 
       <script type="module" src="https://embedding.tableauusercontent.com/tableau.embedding.3.1.0.min.js" async></script>
     </Helmet>
-    <div className='mx-0'>
+    <div className={!vizReady ? 'mx-0 h-0' : 'mx-0'}>
       {viz}
+    </div>
+    <div className={vizReady ? 'mx-0 hidden' : 'mx-0'}>
+      <img src={StaticDashboardImg} alt="Static Dashboard" />
     </div>
   </>
 )};
