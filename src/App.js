@@ -1,6 +1,5 @@
 import './App.css';
 import { Fragment, useEffect, useState } from 'react'
-import { Helmet } from "react-helmet";
 import { Popover, Transition } from '@headlessui/react'
 import { MenuIcon, XIcon } from '@heroicons/react/outline'
 import AnchorLink from 'react-anchor-link-smooth-scroll';
@@ -85,14 +84,6 @@ export default function App() {
 
   return (
     <div className="bg-gray-50">
-      <Helmet>
-        <title>Tableau Connected Apps Tutorial</title>
-        <meta name="description" content="Get started embedding your Tableau dashboards in a React web app using Connected Apps and the Tableau Embedding API v3" />
-        <meta property="og:title" content="Tableau Connected Apps Tutorial" />
-        <meta property="og:type" content="article" />
-        <meta property="og:article:published_time" content="2022-04-25T10:00:00+00:00" />
-        <meta property="og:article:author" content="2022-04-25T10:00:00+00:00" />
-      </Helmet>
       <div className="relative overflow-hidden">
         <div className="absolute inset-y-0 h-full w-full" aria-hidden="true">
           <div className="relative h-full">
@@ -245,7 +236,7 @@ export default function App() {
                 viewUrl={"https://clientreporting.theinformationlab.co.uk/t/PublicDemo/views/IncomeStatement/IncomeStatement"}
                 tokenUrl={"/api/jwt"}
               />
-              <img src={ConnectedAppImg} width={200} className="bottom-16 absolute right-16 z-50"/>
+              <img src={ConnectedAppImg} width={200} alt="Label indicating that the embedded dashboard uses connected apps" className="bottom-16 absolute right-16 z-50"/>
             </div>
           </div>
         </div>
@@ -706,7 +697,7 @@ module.exports = (req, res) => {
                 The example embed at the top of this page is using this code and is accessed via the API <a href="/ap/jwt" target={'blank'} rel="noreferrer">/api/jwt</a> hosted
                 by this website. Each time the page is loaded the API endpoint generates a new token. Here's the result of the API being queried live:
               </p>
-              <iframe className="word-wrap w-full h-20 rounded-lg shadow-lg object-cover object-center" src='http://localhost:3000/api/jwt'></iframe>
+              <iframe className="word-wrap w-full h-20 rounded-lg shadow-lg object-cover object-center" src='https://tableau-connectedapps.theinformationlab.io/api/jwt' title="Example JWT"></iframe>
               <p>That's it for server side! We have our token, now let's go on to use it in our web app.</p>
             </div>
           </div>
