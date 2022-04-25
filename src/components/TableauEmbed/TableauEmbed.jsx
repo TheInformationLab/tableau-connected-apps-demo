@@ -91,11 +91,11 @@ const TableauEmbed = (props) => {
 
   // *** Display loading or error state or retriving a token instead of loading dashboard
 
-  if (loading) return "Loading..."
+  // if (loading) return "Loading..."
   if (error) return "Error! " + JSON.stringify(error);
   // *** If the token is present then return the embedding API library with the tableau-viz component
 
-  const padding = showMobile ? 'px-0' : 'p-32';
+  const padding = showMobile ? 'px-0' : 'px-32 pb-32';
 
   return (
   <>
