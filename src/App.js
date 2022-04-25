@@ -1,5 +1,6 @@
 import './App.css';
 import { Fragment, useEffect, useState } from 'react'
+import { Helmet } from "react-helmet";
 import { Popover, Transition } from '@headlessui/react'
 import { MenuIcon, XIcon } from '@heroicons/react/outline'
 import AnchorLink from 'react-anchor-link-smooth-scroll';
@@ -84,6 +85,14 @@ export default function App() {
 
   return (
     <div className="bg-gray-50">
+      <Helmet>
+        <title>Tableau Connected Apps Tutorial</title>
+        <meta name="description" content="Get started embedding your Tableau dashboards in a React web app using Connected Apps and the Tableau Embedding API v3" />
+        <meta property="og:title" content="Tableau Connected Apps Tutorial" />
+        <meta property="og:type" content="article" />
+        <meta property="og:article:published_time" content="2022-04-25T10:00:00+00:00" />
+        <meta property="og:article:author" content="2022-04-25T10:00:00+00:00" />
+      </Helmet>
       <div className="relative overflow-hidden">
         <div className="absolute inset-y-0 h-full w-full" aria-hidden="true">
           <div className="relative h-full">
