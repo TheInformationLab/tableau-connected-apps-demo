@@ -1,6 +1,7 @@
 import React, { useEffect, useState, useRef } from 'react';
 import { Helmet } from "react-helmet";
 import StaticDashboardImg from '../../img/staticDashboard.png';
+import StaticDashboardMobileImg from '../../img/staticDashboardMobile.png';
 
 const getWidth = () =>
   window.innerWidth ||
@@ -16,6 +17,7 @@ const TableauEmbed = (props) => {
   const [ vizReady, setVizReady ] = useState(false);
 
   const vizRef = useRef(null);
+  const showMobile = width <= 1050;
 
   const vizIsReady = async (event) => {
     setVizReady(true);
@@ -32,7 +34,6 @@ const TableauEmbed = (props) => {
   // *** Load the viz in to the component by setting the viz variable with the tableau-viz component
 
   const loadViz = () => {
-    const showMobile = width <= 1050;
 
     setViz(
       <tableau-viz 
@@ -94,6 +95,8 @@ const TableauEmbed = (props) => {
   if (error) return "Error! " + JSON.stringify(error);
   // *** If the token is present then return the embedding API library with the tableau-viz component
 
+  const padding = showMobile ? 'px-0' : 'p-32';
+
   return (
   <>
     <Helmet> 
@@ -102,8 +105,8 @@ const TableauEmbed = (props) => {
     <div className={!vizReady ? 'mx-0 h-0' : 'mx-0'}>
       {viz}
     </div>
-    <div className={vizReady ? 'mx-0 hidden' : 'mx-0'}>
-      <img src={StaticDashboardImg} alt="Static Dashboard" />
+    <div className={vizReady ? 'hidden ' + padding : 'mx-0 ' + padding}>
+      <img src={showMobile? StaticDashboardMobileImg : StaticDashboardImg} alt="Static Dashboard" />
     </div>
   </>
 )};
